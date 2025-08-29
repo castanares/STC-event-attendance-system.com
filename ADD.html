@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="dash_styles.css">
+    <link rel="stylesheet" href="side_styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+<script>
+// Custom date picker for formatted date inside input, restrict to today and future
+document.addEventListener('DOMContentLoaded', function() {
+  var dateInput = document.getElementById('eventDate');
+  dateInput.addEventListener('focus', function(e) {
+    e.preventDefault();
+    var picker = document.createElement('input');
+    picker.type = 'date';
+    picker.style.position = 'absolute';
+    picker.style.opacity = 0;
+    picker.style.pointerEvents = 'none';
+    // Set min to today
+    var today = new Date();
+    var yyyy = today.getFullYear();
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var dd = String(today.getDate()).padStart(2, '0');
+    picker.min = yyyy + '-' + mm + '-' + dd;
+    document.body.appendChild(picker);
+    picker.focus();
+    picker.addEventListener('change', function() {
+      if (picker.value) {
+        var dateObj = new Date(picker.value);
+        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+        dateInput.value = dateObj.toLocaleDateString('en-US', options);
+      }
+      document.body.removeChild(picker);
+    });
+    picker.addEventListener('blur', function() {
+      document.body.removeChild(picker);
+    });
+  });
+});
+</script>
+<style>
+      .department-check {
+        transition: background 0.2s, box-shadow 0.2s;
+      }
+      .department-check:hover {
+        background: #ffe5e5;
+        box-shadow: 0 2px 8px rgba(128,0,0,0.08);
+      }
+      .dept-margin {
+        margin-left: 10rem;
+      }
+      .dept-margin-right {
+        margin-right: 10rem;
+      }
+      .maroon-text {
+        color: maroon;
+      }
+      .bg-maroon {
+        background-color: maroon;
+      }
+      .form-check-input:checked {
+        background-color: maroon;
+        border-color: maroon;
+      }
+    </style>
+</head>
+
+<body>
+  
+    <!-- Desktop Sidebar with Toggle -->
+    <!-- <button class="sidebar-toggle-btn d-lg-block margin-burger" id="sidebarToggle" aria-label="Toggle sidebar">&#9776;</button>
+    <section class="d-lg-block"> -->
+  <div class="sidebar d-lg-block " id="mainSidebar">
+        <nav class="text-center">
+          <img src="stctandag-logo.png" alt="stc_logo" class="mx-auto d-block stc-logo" srcset="">
+          <div class="d-flex flex-column align-items-center">
+            <a href="index.html" class="link-body-emphasis text-decoration-none">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-fill text-light" viewBox="0 0 16 16">
+                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
+              </svg>
+              <ul class="nav">
+                <li><a href="index.html" class="nav-link px-2 link-body-emphasis"><h6 class="side_home text-light">Home</h6></a></li>
+              </ul>
+            </a>
+          </div>
+          <div class="d-flex flex-column align-items-center">
+            <a href="ongoing.html" class="mb-2 link-body-emphasis text-decoration-none">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar-check text-light" viewBox="0 0 16 16">
+                <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+              </svg>
+              <ul class="nav">
+                <li><a href="ongoing.html" class="nav-link px-2 link-body-emphasis"><h6 class="ongoing text-light">Ongoing Events</h6></a></li>
+              </ul>
+            </a>
+          </div>
+          <div class="d-flex flex-column align-items-center active-sidebar">
+            <a href="ADD.html" class="mb-2 link-body-emphasis text-decoration-none">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-lg text-light" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+              </svg>
+              <ul class="nav">
+                <li><a href="ADD.html" class="nav-link px-2 link-body-emphasis"><h6 class="Add text-light">ADD EVENTS</h6></a></li>
+              </ul>
+            </a>
+          </div>
+          <div class="d-flex flex-column align-items-center ">
+            <a href="sidebar.html" class="mb-2 link-body-emphasis text-decoration-none">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-card-checklist" viewBox="0 0 16 16">
+                <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
+                <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
+                </svg>
+              <ul class="nav">
+                <li><a href="sidebar.html" class="nav-link px-2 link-body-emphasis"><h6 class="Add text-light">ScanLOG</h6></a></li>
+              </ul>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </section>
+    
+    
+       <section>
+      <header class="p-3 mb-3 border-bottom bg-light">
+      <div class="container ">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          
+          <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none nav-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus-lg text-dark" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+            </svg>
+          </a>
+
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="#" class="nav-link px-2 link-body-emphasis"><h5 class="dash">CREATE EVENT</h5></a></li>
+          </ul>
+
+
+          <div class="dropdown text-end">
+            <a href="#" class="d-block link-body-emphasis text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="../images/profile-circle-icon-2048x2048-cqe5466q.png" alt="mdo" width="32" height="32" class="rounded-circle">
+            </a>
+            <ul class="dropdown-menu text-small" >
+              <li><a class="dropdown-item" href="#">New project...</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Sign out</a></li>
+            </ul>
+          </div> 
+          <div class="account_name">
+            <h6>CBTA-Department</h6>
+          </div>
+        </div>
+      </div>
+    </header>
+        
+
+  </section>
+      
+
+<br>
+
+<section style="display: flex; justify-content: center; align-items: center; min-height: 60vh;">
+  <div class="container" style="max-width: 800px; background: #fff; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.10); padding: 2.5pc 2pc;">
+    <h2 class="dash text-center mb-4 text-decoration-underline link-underline-danger">Add New Event</h2>
+    <form action="" method="post" autocomplete="off">
+      <div style="display: flex; flex-direction: column; gap: 1.5pc;">
+        <div>
+          <label for="eventName" class="event-name fw-bold">Event Name</label>
+          <input type="text" name="name" id="eventName" class="event-name-fill rounded form-control mt-1" placeholder="Enter event name" required>
+        </div>
+        <div style="display: flex; gap: 1pc;">
+          <div style="flex:1;">
+            <label for="eventDate" class="event-date fw-bold">Event Date</label>
+            <input type="date" name="date" id="eventDate" class="event-date-fill rounded form-control mt-1" required>
+            <!-- <span id="formattedDate" style="display:block; margin-top:6px; font-size:1rem; color:#6c757d;"></span> -->
+          </div>
+          <div style="flex:1;">
+            <label for="semester" class="max-attendance fw-bold">Semester</label>
+            <select name="semester" id="semester" class="max-attendance-fill rounded form-control mt-1" required>
+              <option value="">Select Semester</option>
+              <option value="1st">1st Semester</option>
+              <option value="2nd">2nd Semester</option>
+              <option value="Summer">Summer</option>
+            </select>
+          </div>
+        </div>
+        <!-- Department checklist inside form column -->
+        <!-- <div class="card shadow-sm p-3 mb-3"> -->
+          <h5 class="mb-1 fw-bold text-center ">Include Other Departments(Optional)</h5>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-check d-flex align-items-center gap-2 p-2 rounded department-check dept-margin">
+                <input class="form-check-input" type="checkbox" value="CASTE" id="dept1" name="departments[]">
+                <label class="form-check-label fw-semibold" for="dept1">
+                  <i class="bi bi-building me-2 maroon-text"></i>CASTE
+                </label>
+              </div>
+              <div class="form-check d-flex align-items-center gap-2 p-2 rounded department-check dept-margin">
+                <input class="form-check-input" type="checkbox" value="COC" id="dept2" name="departments[]">
+                <label class="form-check-label fw-semibold " for="dept2" >
+                  <i class="bi bi-building me-2 maroon-text "></i>COC
+                </label>
+              </div>
+              <div class="form-check d-flex align-items-center gap-2 p-2 rounded department-check dept-margin">
+                <input class="form-check-input" type="checkbox" value="CON" id="dept3" name="departments[]">
+                <label class="form-check-label fw-semibold" for="dept3">
+                  <i class="bi bi-building me-2 maroon-text"></i>CON
+                </label>
+              </div>
+
+            </div>
+            <div class="col-md-6">
+              <div class="form-check d-flex align-items-center gap-2 p-2 rounded department-check dept-margin-right">
+                <input class="form-check-input" type="checkbox" value="Senior High School" id="dept5" name="departments[]">
+                <label class="form-check-label fw-semibold" for="dept5">
+                  <i class="bi bi-building me-2 maroon-text"></i>Senior High School
+                </label>
+              </div>
+              <div class="form-check d-flex align-items-center gap-2 p-2 rounded department-check dept-margin-right">
+                <input class="form-check-input" type="checkbox" value="Junior High School" id="dept6" name="departments[]">
+                <label class="form-check-label fw-semibold" for="dept6">
+                  <i class="bi bi-building me-2 maroon-text"></i>Junior High School
+                </label>
+              </div>
+              <div class="form-check d-flex align-items-center gap-2 p-2 rounded department-check dept-margin-right">
+                <input class="form-check-input" type="checkbox" value="Elementary" id="dept7" name="departments[]">
+                <label class="form-check-label fw-semibold" for="dept7">
+                  <i class="bi bi-building me-2 maroon-text"></i>Elementary
+                </label>
+              </div>
+            </div>
+            </div>
+      
+        <div>
+          <!-- <label class="fw-bold event-time text-decoration-underline link-underline-danger">Event Time</label> -->
+          <label class="fw-bold event-time text-decoration-underline link-underline-danger d-block text-center" style="margin-bottom: 0.5pc;">Event Time</label>
+          <div style="display: flex; gap: 1pc; margin-top: 0.5pc;">
+            <div style="flex:1;">
+              <label for="timeInStart" class="fw-bold event-time-in">Time In Start</label>
+              <input type="time" name="time-in-start" id="timeInStart" class="time-in-start rounded form-control mt-1 text-center" required>
+            </div>
+            <div style="flex:1;">
+              <label for="timeInEnd" class="fw-bold event-time-in">Time In End</label>
+              <input type="time" name="time-in-end" id="timeInEnd" class="time-in-end rounded form-control mt-1 text-center" required>
+            </div>
+          </div>
+          <div style="display: flex; gap: 1pc; margin-top: 0.5pc;">
+            <div style="flex:1;">
+              <label for="timeOutStart" class="fw-bold event-time-out">Time Out Start</label>
+              <input type="time" name="time-out-start" id="timeOutStart" class="time-out-start rounded form-control mt-1 text-center" required>
+            </div>
+            <div style="flex:1;">
+              <label for="timeOutEnd" class="fw-bold event-time-out">Time Out End</label>
+              <input type="time" name="time-out-end" id="timeOutEnd" class="time-out-end rounded form-control mt-1 text-center" required>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <input type="submit" value="Create" class="btn btn-success submit fw-bold fs-5 bg-maroon">
+      </div>
+    </form>
+  </div>
+
+</section>
+
+  
+ 
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script>
+      // Show formatted date below the input
+      document.addEventListener('DOMContentLoaded', function() {
+        var dateInput = document.getElementById('eventDate');
+        var formattedDate = document.getElementById('formattedDate');
+        function formatDate(dateStr) {
+          if (!dateStr) return '';
+          var dateObj = new Date(dateStr);
+          var options = { year: 'numeric', month: 'long', day: 'numeric' };
+          return dateObj.toLocaleDateString('en-US', options);
+        }
+        dateInput.addEventListener('change', function() {
+          formattedDate.textContent = formatDate(dateInput.value);
+        });
+        // Show formatted date if already selected
+        if (dateInput.value) {
+          formattedDate.textContent = formatDate(dateInput.value);
+        }
+      });
+
+     
+      
+
+    </script>
+    <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                var dateInput = document.getElementById('eventDate');
+                var today = new Date();
+                var yyyy = today.getFullYear();
+                var mm = String(today.getMonth() + 1).padStart(2, '0');
+                var dd = String(today.getDate()).padStart(2, '0');
+                dateInput.min = yyyy + '-' + mm + '-' + dd;
+              });
+            </script>
+
+
+    <script>
+      // // Desktop sidebar toggle sidebar
+      // document.addEventListener('DOMContentLoaded', function() {
+      //   var sidebar = document.getElementById('mainSidebar');
+      //   var toggleBtn = document.getElementById('sidebarToggle');
+      //   var sidebarVisible = false;
+      //   function updateSidebar() {
+      //     sidebar.classList.toggle('hide-sidebar', !sidebarVisible);
+      //   }
+      //   toggleBtn.addEventListener('click', function() {
+      //     sidebarVisible = !sidebarVisible;
+      //     updateSidebar();
+      //   });
+      //   // Initial state: sidebar closed
+      //   updateSidebar();
+      // });
+    </script>
+
+    
+</body>
+
+</html>
