@@ -47,16 +47,24 @@
   }
 .Add{
     margin-top: -15px;
+    margin-bottom: -5px;
+    
   }
    .ongoing{
-    margin-top: -20px;
+    margin-top: -25px;
+    margin-bottom: -5px;
   }
   .side_home{
     margin-top: -5px;
+    margin-bottom: 1px;
+   
   }
 
     .active-sidebar{
       background-color: rgb(92, 4, 4);
+      border-radius: 5px;
+      border-left: 2px solid white !important;
+
     }
     .margin-burger{
       margin-top: -12px;
